@@ -1,4 +1,4 @@
-let remain = 2
+let remain = 20
 let start = 0
 let timer_id = 0
 
@@ -15,9 +15,15 @@ function timedisp() {
   document.write("<br />")
   
   var diff = (current.getTime() - start.getTime()) / 1000
-  document.writeln(diff)
+  var disp = remain - Math.floor(diff)  
+  var disp2 = Math.ceil(disp / 10)  
 
-  if (diff > 10) {
+  document.writeln(disp)
+  document.write("<br />")
+  document.writeln(disp2)
+
+
+  if (diff > remain) {
     clearInterval(timer_id)
     clearInterval(another_id)
     
@@ -29,7 +35,7 @@ function timedisp() {
 
 window.onload = function() {
   start = new Date()
-  timer_id = window.setInterval('timedisp()', 1000);
+  timer_id = window.setInterval('timedisp()', 200);
   another_id = window.setInterval('anotherdisp()', 500)
 
 }
