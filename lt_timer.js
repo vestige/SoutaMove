@@ -1,8 +1,9 @@
 let unit = 5;
 let remain = 12;
+let started = 0;
 
 function clearpanel() {
-  basic.showLeds(`
+    basic.showLeds(`
   . . . . .
   . . . . .
   . . . . .
@@ -33,19 +34,25 @@ function lights(disp: number) {
 }
 
 input.onButtonPressed(Button.A, () => {
+    started = 0;
     clearpanel()
 
     for (let count = 0; count < remain; count++) {
-      lights(remain - count)
-      for (let i = 0; i < 20; i++) {
+        lights(remain - count)
+        for (let i = 0; i < 20; i++) {
+            if (started === -1) break;
             led.toggle(4, 4)
             basic.pause(500)
         }
     }
+    if (started === -1) return;
     basic.showIcon(IconNames.Heart)
     music.beginMelody(music.builtInMelody(Melodies.BaDing), MelodyOptions.Forever)
 })
+
 input.onButtonPressed(Button.B, () => {
+    started = -1;
+    clearpanel()
     music.beginMelody(music.builtInMelody(Melodies.JumpUp), MelodyOptions.Once)
     basic.showIcon(IconNames.Ghost)
 })
